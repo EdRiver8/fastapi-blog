@@ -1,6 +1,8 @@
 from typing import Optional
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, Depends, Response, status
 from enum import Enum
+
+from routers.blog_post import requiered_funcionality
 
 router = APIRouter(prefix="/blog", tags=["blog"])
 
@@ -21,9 +23,13 @@ router = APIRouter(prefix="/blog", tags=["blog"])
     description="This api call simulates fetching all blogs",
     response_description="The list of avalible blogs",
 )
-def get_all_blogs(page=1, page_size: Optional[int] = None):
+def get_all_blogs(
+    page=1,
+    page_size: Optional[int] = None,
+    req_param: dict = Depends(requiered_funcionality),
+):
     """Usando Query params y valores por defecto"""
-    return {"message": f"All {page_size} blogs on page {page}"}
+    return {"message": f"All {page_size} blogs on page {page}", "req_param": req_param}
 
 
 @router.get("/{id}/comments/{comment_id}", tags=["comment"])

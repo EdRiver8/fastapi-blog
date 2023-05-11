@@ -50,3 +50,8 @@ def create_comments(
         "version": v,
         "comment_id": comment_id,
     }
+
+
+# Ejemplo de dependencia
+def requiered_funcionality():
+    return {"message": "Learning FastAPI is important"}

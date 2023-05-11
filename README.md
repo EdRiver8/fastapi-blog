@@ -1,9 +1,9 @@
 CONFIGURACION INICIAL
+Obs: pip install -r requirements.txt instala todo lo necesario
 1- Instalar el ambiente virtual(venv): python -m venv /path/to/new/virtual/environment, la ruta es el
 lugar y el nombre(ultima parte de la ruta) del proyecto, si ya se esta en la carpeta donde se va a crear
 el venv, despues de 'venv' solo se pone el nombre del ambiente virtual (puede ser el nombre del proyecto)
-2- Activar el venv en win, usar terminal cmd (ubicado en la carpeta padre del venv): <venv>\Scripts\activate.bat <>primera parte,
-es el nombre del ambiente virtual (paso anterior).
+2- Activar el venv en win, usar terminal cmd (ubicado en la carpeta padre del venv): <venv>\Scripts\activate.bat <>primera parte, es el nombre del ambiente virtual (paso anterior). Para desactivar en cmd 'deactivate'
 3- Instalar fastapi: pip install fastapi
 4- Instalar el servidor: pip install uvicorn
 5- Ejecutar el servidor: uvicorn (Lugar donde encuentra la instancia de fastapi)main:(nombre de la instancia)app --reload (cambios reiniciar)
@@ -21,3 +21,15 @@ en los endpoints como opcional, se vuelve un default value, y es el unico que pe
 n valores opcionales o por defecto
 12- el uso de 'Body' es poner un paramentro por defecto en el endpoint; el uso de
 '...', es para hacer requerido, no opcional
+13- creacion del archivo 'requirements.txt' el cual se puede ejecutar para instalar todo
+lo necesario para correr el proyecto: pip install -r requirements.txt
+14- Usando sqlalchemy para crear las tablas de la db, uso de una plantilla para ello
+(boilerplate) con las importaciones necesarias y codigo inicial
+15- Cadena de conexion a la db de SQlite:
+{
+"previewLimit": 50,
+"driver": "SQLite",
+"database": "${workspaceFolder:fastapi-blog}/fastapi-blog.db",
+"name": "fastapi-blog"
+}
+16- passlib y bcrypt, librerias para hashear el password
