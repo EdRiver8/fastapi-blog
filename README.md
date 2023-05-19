@@ -33,3 +33,6 @@ lo necesario para correr el proyecto: pip install -r requirements.txt
 "name": "fastapi-blog"
 }
 16- passlib y bcrypt, librerias para hashear el password
+17- Schemas son las clases u objetos (se relaciona con Entity); mientras que los
+models, son tablas de la db (se relaciona con repository o dao, solo que el crud esta en db... ejm db_user, usando Session de SQLAlchemy.orm); ...Base, hace referencia al DTO de entrada (lo que se espera del usuario)
+y Dislplay al DTO de salida (lo que se le va a enviar al usuario)

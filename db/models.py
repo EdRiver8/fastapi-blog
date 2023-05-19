@@ -1,5 +1,8 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql.schema import ForeignKey
+from sqlalchemy.sql.sqltypes import Integer, String, Boolean
 from db.database import Base
+from sqlalchemy import Column
 
 # Estos son los datos que se envian a la DB
 
@@ -7,6 +10,17 @@ from db.database import Base
 class DbUser(Base):
     __tablename__ = "users"  # nombre de la tabla en la db
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String(255))
-    email = Column(String, unique=True)
+    username = Column(String)
+    email = Column(String)
     password = Column(String)
+    items = relationship("DbArticle", back_populates="user")
+
+
+class DbArticle(Base):
+    __tablename__ = "articles"  # nombre de la tabla
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    content = Column(String)
+    published = Column(Boolean)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("DbUser", back_populates="items")
