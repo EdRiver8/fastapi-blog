@@ -1,11 +1,16 @@
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse, PlainTextResponse
-from exceptions import StoryException
+from typing import Optional
+from fastapi import FastAPI, Request
 from routers import blog_get, blog_post, user, article, product
-from db import models
+from auth import authentication
 from db.database import engine
+from db import models
+from exceptions import StoryException
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+app.include_router(authentication.router)
 app.include_router(user.router)
 app.include_router(article.router)
 app.include_router(product.router)
@@ -15,8 +20,7 @@ app.include_router(blog_post.router)
 
 @app.get("/hello")
 def index():
-    # return "Hello World!"
-    return {"message": "Hello World!"}
+    return {"message": "Hello world!"}
 
 
 @app.exception_handler(StoryException)
@@ -25,9 +29,19 @@ def story_exception_handler(request: Request, exc: StoryException):
 
 
 # @app.exception_handler(HTTPException)
-# def custom_exception_handler(request: Request, exc: StoryException):
-#     return PlainTextResponse(str(exc), status_code=400)
+# def custom_handler(request: Request, exc: StoryException):
+#   return PlainTextResponse(str(exc), status_code=400)
 
-
-# Crea la db
+# Creando la DB
 models.Base.metadata.create_all(engine)
+
+# Evitar problemas de CORS al separar back y front, y lanzar los servidores desde misma maquina
+origins = ["http://localhost:3000"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)

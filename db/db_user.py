@@ -1,12 +1,10 @@
-from fastapi import HTTPException, status
-from sqlalchemy.orm.session import Session
-from db.models import DbUser
 from db.hash import Hash
-
+from sqlalchemy.orm.session import Session
 from schemas import UserBase
+from db.models import DbUser
+from fastapi import HTTPException, status
 
 
-# Creacion del usuario en la db
 def create_user(db: Session, request: UserBase):
     new_user = DbUser(
         username=request.username,
@@ -14,7 +12,7 @@ def create_user(db: Session, request: UserBase):
         password=Hash.bcrypt(request.password),
     )
     db.add(new_user)
-    db.commit()  # confirma los cambios en la db (agregar nuevo usuario)
+    db.commit()
     db.refresh(new_user)
     return new_user
 
@@ -23,25 +21,30 @@ def get_all_users(db: Session):
     return db.query(DbUser).all()
 
 
-def get_user_by_id(db: Session, id: int):
+def get_user(db: Session, id: int):
     user = db.query(DbUser).filter(DbUser.id == id).first()
-    # Handle any exceptions
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"User with id {id} not found",
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"User with id {id} not found"
         )
+    return user
 
-    return db.query(DbUser).filter(DbUser.id == id).first()
 
-
-def update_user_by_id(db: Session, id: int, request: UserBase):
-    user = db.query(DbUser).filter(DbUser.id == id).first()
-    # Handle any exceptions
+def get_user_by_username(db: Session, username: str):
+    user = db.query(DbUser).filter(DbUser.username == username).first()
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"User with id {id} not found",
+            detail=f"User with username {username} not found",
+        )
+    return user
+
+
+def update_user(db: Session, id: int, request: UserBase):
+    user = db.query(DbUser).filter(DbUser.id == id)
+    if not user.first():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"User with id {id} not found"
         )
     user.update(
         {
@@ -51,17 +54,15 @@ def update_user_by_id(db: Session, id: int, request: UserBase):
         }
     )
     db.commit()
-    return "user updated"
+    return "ok"
 
 
-def delete_user_by_id(db: Session, id: int):
+def delete_user(db: Session, id: int):
     user = db.query(DbUser).filter(DbUser.id == id).first()
-    # Handle any exceptions
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"User with id {id} not found",
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"User with id {id} not found"
         )
     db.delete(user)
     db.commit()
-    return "User deleted"
+    return "ok"
