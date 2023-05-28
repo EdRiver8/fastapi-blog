@@ -1,6 +1,7 @@
 from typing import List, Optional
 from fastapi import APIRouter, Form, Header, Cookie
 from fastapi.responses import Response, HTMLResponse, PlainTextResponse
+from custom_log import log
 
 # Tags permite agrupar en el swagger
 router = APIRouter(prefix="/product", tags=["product"])
@@ -17,6 +18,7 @@ def create_product(name: str = Form(...)):
 # respuesta en archivo plano
 @router.get("/all")
 def get_all_products():
+    log("MyAPI", "Call to get all products")
     # return products
     data = " ".join(products)
     response = Response(content=data, media_type="text/plain")

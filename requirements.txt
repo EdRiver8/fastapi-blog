@@ -6,3 +6,6 @@ bcrypt
 python-multipart
 python-jose
 aiofiles
+httpx
+requests
+pytest

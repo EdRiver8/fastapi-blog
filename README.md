@@ -3,7 +3,8 @@ Obs: pip install -r requirements.txt instala todo lo necesario
 1- Instalar el ambiente virtual(venv): python -m venv /path/to/new/virtual/environment, la ruta es el
 lugar y el nombre(ultima parte de la ruta) del proyecto, si ya se esta en la carpeta donde se va a crear
 el venv, despues de 'venv' solo se pone el nombre del ambiente virtual (puede ser el nombre del proyecto)
-2- Activar el venv en win, usar terminal cmd (ubicado en la carpeta padre del venv): <venv>\Scripts\activate.bat <>primera parte, es el nombre del ambiente virtual (paso anterior). Para desactivar en cmd 'deactivate'
+2- Activar el venv en win, usar terminal cmd (ubicado en la carpeta padre del venv): <venv>\Scripts\activate.bat
+<>primera parte, es el nombre del ambiente virtual (paso anterior). Para desactivar en cmd 'deactivate'
 3- Instalar fastapi: pip install fastapi
 4- Instalar el servidor: pip install uvicorn
 5- Ejecutar el servidor: uvicorn (Lugar donde encuentra la instancia de fastapi)main:(nombre de la instancia)app --reload (cambios reiniciar)
@@ -34,7 +35,15 @@ lo necesario para correr el proyecto: pip install -r requirements.txt
 }
 16- passlib y bcrypt, librerias para hashear el password
 17- Schemas son las clases u objetos (se relaciona con Entity); mientras que los
-models, son tablas de la db (se relaciona con repository o dao, solo que el crud esta en db... ejm db_user, usando Session de SQLAlchemy.orm); ...Base, hace referencia al DTO de entrada (lo que se espera del usuario)
+models, son tablas de la db (se relaciona con repository o dao, solo que el crud esta en db... ejm db_user, usando
+Session de SQLAlchemy.orm); ...Base, hace referencia al DTO de entrada (lo que se espera del usuario)
 y Dislplay al DTO de salida (lo que se le va a enviar al usuario)
 18- Instalar python-multipart para el uso de forms
 19- python-jose permite genera los jwt tokens para la autenticacion con Oauth2
+20- despliegue en Deta (free), lo que necesita como minimo es un main.py y requirements.txt (Lista
+de librerias que se necesitan); antes de logearse se detiene el servidor y se sale del venv, se instala deta en la
+maquina con shell para su ejecucion usando: iwr https://get.deta.dev/cli.ps1 -useb | iex (comando despues de instalar
+para ayuda: deta --help) luego, se inicia el venv de nuevo, luego comando: deta login(logearse en deta.sh) y
+despues: deta new --python first_micro (en el root del proyecto), leer la documentacion para ver los comandos
+necesarios (https://docs.deta.sh/docs/home/)
+21- instalar httpx, requests y pytest para las pruebas unitarias, para correr los test en cli = pytest
