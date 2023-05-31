@@ -9,3 +9,5 @@ aiofiles
 httpx
 requests
 pytest
+jinja2
+websockets

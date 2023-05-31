@@ -47,3 +47,4 @@ para ayuda: deta --help) luego, se inicia el venv de nuevo, luego comando: deta 
 despues: deta new --python first_micro (en el root del proyecto), leer la documentacion para ver los comandos
 necesarios (https://docs.deta.sh/docs/home/)
 21- instalar httpx, requests y pytest para las pruebas unitarias, para correr los test en cli = pytest
+22- websockets permite la conexion y por ello la comunicacion abierta para enviar y recibir msj
