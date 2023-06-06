@@ -6,7 +6,7 @@ from fastapi.responses import PlainTextResponse
 from starlette.responses import HTMLResponse
 from exceptions import StoryException
 from fastapi import FastAPI
-from routers import blog_get, blog_post, user, article, product, file
+from routers import blog_get, blog_post, user, article, product, file, dependencies
 from auth import authentication
 from templates import templates
 from db import models
@@ -21,6 +21,7 @@ from fastapi.websockets import WebSocket
 
 app = FastAPI()
 app.include_router(templates.router)
+app.include_router(dependencies.router)
 app.include_router(authentication.router)
 app.include_router(file.router)
 app.include_router(user.router)
